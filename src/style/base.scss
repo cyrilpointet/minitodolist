@@ -1,0 +1,82 @@
+@import "reset";
+
+$colors: (
+  "background": #e8e8e8,
+  "warning": #ba4b4b,
+  "primary": #2a9b6f,
+);
+
+@function color($name) {
+  @return map-get($colors, $name);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+body {
+  font-family: 'Varela Round', sans-serif;
+  color: #333333;
+}
+
+@mixin item-shadow($color) {
+  background-color: $color;
+  box-shadow:
+    -5px -5px 15px lighten($color, 35%),
+    5px 5px 15px darken($color, 35%),
+}
+
+@mixin btn-shadow($color) {
+  transition: all 0.2s;
+  background-color: $color;
+  box-shadow:
+    5px 5px 10px darken($color, 35%),
+    -10px -10px 15px darken($color, 10%) inset,
+    10px 10px 15px lighten($color, 10%) inset;
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.item {
+  @include item-shadow(color(background));
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.stampedText {
+  font-weight: bold;
+  text-shadow:
+    -2px -2px 2px rgba(white, 0.75),
+    2px 2px 2px rgba(black, 0.25)
+}
+
+.btn {
+  width: 48px;
+  min-width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 24px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  text-shadow:
+    -2px -2px 2px rgba(black, 0.2),
+    2px 2px 2px rgba(white, 0.5);
+  &.warning {
+    @include btn-shadow(color(background));
+    color: color(warning)
+  }
+  &.primary {
+    @include btn-shadow(color(background));
+    color: color(primary)
+  }
+  &.base {
+    @include btn-shadow(color(background));
+  }
+}
